@@ -3,5 +3,11 @@ faker>=22.0.0
 pandas>=2.0.0
 numpy>=1.24.0
 
+# LSTM readmission (PyTorch)
+torch>=2.0.0
+
+# ARIMA volume forecasting
+statsmodels>=0.14.0
+
 # Optional: for reading real MIMIC CSVs if you get access
 # pyarrow>=14.0.0

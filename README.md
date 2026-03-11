@@ -48,6 +48,33 @@ python -m data.feature_engineering --processed-dir data/processed --raw-dir data
 
 Output: `data/processed/stays_featured.csv` (use for modeling).
 
+## 4. Models
+
+### LSTM – binary readmission (PyTorch)
+
+Predicts 30-day readmission from ICU vital-sign sequences (heart rate, BP, temp, resp rate, SpO₂).
+
+```bash
+pip install -r requirements.txt   # includes torch
+python -m models.lstm_readmission --data-dir data --epochs 30 --batch-size 32
+```
+
+- **Input:** `data/processed/chartevents_cleaned.csv` + `data/raw/icustays.csv`, `admissions.csv`  
+- **Output:** `models/checkpoints/lstm_readmission_best.pt`  
+- **Options:** `--seq-len`, `--hidden-size`, `--lr`, `--readmission-days` (default 30)
+
+### ARIMA – volume forecasting
+
+Forecasts daily admission (or ICU stay) volume.
+
+```bash
+python -m models.arima_volume --data-dir data --series admissions --horizon 14
+```
+
+- **Input:** `data/raw/admissions.csv` or `icustays.csv`  
+- **Output:** `models/checkpoints/arima_volume.pkl`, `arima_volume_forecast.csv`  
+- **Options:** `--series admissions|icustays`, `--order p,d,q`, `--horizon`
+
 ## Schema
 
 - **Clinical schema:** `data/clinical_schema.py` (chart/lab itemids, ranges, admission types, ICD samples).  
