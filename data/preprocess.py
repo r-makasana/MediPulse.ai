@@ -178,6 +178,16 @@ def main():
         merged.to_csv(args.out_dir / "stays_merged.csv", index=False)
         print(f"Saved stays_merged.csv with {len(merged)} rows, {len(merged.columns)} columns")
 
+    # Feature engineering: age, diagnoses, prior visits, labs, LOS
+    try:
+        from data.feature_engineering import build_featured_dataset
+        print("Engineering features...")
+        featured = build_featured_dataset(args.out_dir, args.raw_dir)
+        featured.to_csv(args.out_dir / "stays_featured.csv", index=False)
+        print(f"Saved stays_featured.csv with {len(featured)} rows, {len(featured.columns)} columns")
+    except Exception as e:
+        print(f"Feature engineering skipped: {e}")
+
     print(f"Done. Processed output in {args.out_dir}")
 
 
