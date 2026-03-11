@@ -1,0 +1,7 @@
+# Data generation & preprocessing
+faker>=22.0.0
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Optional: for reading real MIMIC CSVs if you get access
+# pyarrow>=14.0.0
